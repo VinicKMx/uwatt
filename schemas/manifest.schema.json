@@ -1,0 +1,46 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://uwatt.dev/schemas/manifest.schema.json",
+  "title": "uWatt run manifest",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "uwatt_version",
+    "run_id",
+    "timestamp",
+    "project",
+    "scenario",
+    "git",
+    "firmware",
+    "platform",
+    "target",
+    "instrument",
+    "measurement",
+    "synchronization",
+    "environment"
+  ],
+  "properties": {
+    "schema_version": { "type": "string", "minLength": 1 },
+    "uwatt_version": { "type": "string", "minLength": 1 },
+    "run_id": { "type": "string", "minLength": 1 },
+    "timestamp": { "type": "string", "minLength": 1 },
+    "project": { "$ref": "#/$defs/object" },
+    "scenario": { "$ref": "#/$defs/object" },
+    "git": { "$ref": "#/$defs/object" },
+    "firmware": { "$ref": "#/$defs/object" },
+    "platform": { "$ref": "#/$defs/object" },
+    "target": { "$ref": "#/$defs/object" },
+    "instrument": { "$ref": "#/$defs/object" },
+    "measurement": { "$ref": "#/$defs/object" },
+    "synchronization": { "$ref": "#/$defs/object" },
+    "environment": { "$ref": "#/$defs/object" }
+  },
+  "$defs": {
+    "object": {
+      "type": "object",
+      "additionalProperties": true
+    }
+  }
+}
+

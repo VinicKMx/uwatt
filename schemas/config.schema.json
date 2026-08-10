@@ -1,0 +1,165 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://uwatt.dev/schemas/config.schema.json",
+  "title": "uWatt project configuration",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["project", "target", "instrument", "synchronization", "scenarios"],
+  "properties": {
+    "project": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["name"],
+      "properties": {
+        "name": { "type": "string", "minLength": 1 }
+      }
+    },
+    "target": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["board"],
+      "properties": {
+        "board": { "type": "string", "minLength": 1 },
+        "board_revision": { "type": "string", "minLength": 1 },
+        "mcu": { "type": "string", "minLength": 1 }
+      }
+    },
+    "instrument": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["backend", "voltage"],
+      "properties": {
+        "backend": {
+          "type": "string",
+          "enum": ["synthetic", "file", "joulescope", "ppk2"]
+        },
+        "voltage": { "$ref": "#/$defs/quantity" },
+        "sample_rate": { "$ref": "#/$defs/quantity" },
+        "serial": { "type": "string", "minLength": 1 }
+      }
+    },
+    "synchronization": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["method"],
+      "properties": {
+        "method": {
+          "type": "string",
+          "enum": ["gpio", "serial", "rtt", "usb_cdc", "offline", "synthetic"]
+        },
+        "channel": { "type": "integer", "minimum": 0 },
+        "transport": { "type": "string", "minLength": 1 }
+      }
+    },
+    "scenarios": {
+      "type": "object",
+      "minProperties": 1,
+      "additionalProperties": { "$ref": "#/$defs/scenario" }
+    }
+  },
+  "$defs": {
+    "quantity": {
+      "type": "string",
+      "pattern": "^[0-9]+(\\.[0-9]+)?\\s*(nA|uA|µA|mA|A|nC|uC|µC|mC|C|nJ|uJ|µJ|mJ|J|uW|µW|mW|W|us|µs|ms|s|Hz|kHz|MHz|V|mV|%)$"
+    },
+    "scenario": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["duration", "repetitions"],
+      "properties": {
+        "firmware": { "type": "string", "minLength": 1 },
+        "board": { "type": "string", "minLength": 1 },
+        "duration": { "$ref": "#/$defs/quantity" },
+        "repetitions": { "type": "integer", "minimum": 1 },
+        "warmup": { "type": "integer", "minimum": 0 },
+        "measurement": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "voltage": { "$ref": "#/$defs/quantity" },
+            "sample_rate": { "$ref": "#/$defs/quantity" },
+            "duration": { "$ref": "#/$defs/quantity" }
+          }
+        },
+        "expect": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "events": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "minimum_count": { "type": "integer", "minimum": 0 },
+                  "maximum_count": { "type": "integer", "minimum": 0 }
+                }
+              }
+            }
+          }
+        },
+        "budgets": { "$ref": "#/$defs/budgets" },
+        "battery": {
+          "type": "object",
+          "additionalProperties": true
+        },
+        "regression": {
+          "type": "object",
+          "additionalProperties": true
+        }
+      }
+    },
+    "budgets": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "average_current": { "$ref": "#/$defs/limit" },
+        "peak_current": { "$ref": "#/$defs/limit" },
+        "charge": { "$ref": "#/$defs/limit" },
+        "energy": { "$ref": "#/$defs/limit" },
+        "duration": { "$ref": "#/$defs/limit" },
+        "event_count": { "$ref": "#/$defs/count_limit" },
+        "wakeup_count": { "$ref": "#/$defs/count_limit" },
+        "regions": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "average_current": { "$ref": "#/$defs/limit" },
+              "peak_current": { "$ref": "#/$defs/limit" },
+              "charge": { "$ref": "#/$defs/limit" },
+              "energy": { "$ref": "#/$defs/limit" },
+              "duration": { "$ref": "#/$defs/limit" }
+            }
+          }
+        }
+      }
+    },
+    "limit": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "max": { "$ref": "#/$defs/quantity" },
+        "min": { "$ref": "#/$defs/quantity" }
+      },
+      "anyOf": [
+        { "required": ["max"] },
+        { "required": ["min"] }
+      ]
+    },
+    "count_limit": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "max": { "type": "integer", "minimum": 0 },
+        "min": { "type": "integer", "minimum": 0 }
+      },
+      "anyOf": [
+        { "required": ["max"] },
+        { "required": ["min"] }
+      ]
+    }
+  }
+}
+

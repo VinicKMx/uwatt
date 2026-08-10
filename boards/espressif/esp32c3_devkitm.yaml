@@ -1,0 +1,21 @@
+board: esp32c3_devkitm/esp32c3
+vendor: espressif
+mcu: ESP32-C3
+platform: zephyr
+
+marker:
+  gpio: GPIO10
+
+measurement:
+  recommended_voltage: 3.3V
+  safe_voltage_min: 3.0V
+  safe_voltage_max: 3.6V
+
+flashing:
+  runner: esp32
+
+caveats:
+  - Board-level USB and regulator paths can dominate deep low-power measurements.
+  - Confirm whether the selected supply point bypasses development-board leakage.
+  - Radio-heavy scenarios require stable RF conditions for comparable runs.
+

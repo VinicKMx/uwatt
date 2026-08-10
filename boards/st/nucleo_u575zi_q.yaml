@@ -1,0 +1,21 @@
+board: nucleo_u575zi_q/stm32u575xx
+vendor: st
+mcu: STM32U575
+platform: zephyr
+
+marker:
+  gpio: PA0
+
+measurement:
+  recommended_voltage: 3.0V
+  safe_voltage_min: 1.8V
+  safe_voltage_max: 3.6V
+
+flashing:
+  runner: openocd
+
+caveats:
+  - Remove or isolate board features that remain powered during stop-class states.
+  - Check debugger, LED and virtual COM current paths before trusting microamp results.
+  - Confirm RTC and wakeup pin configuration for stop-mode scenarios.
+

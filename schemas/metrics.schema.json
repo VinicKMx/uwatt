@@ -1,0 +1,33 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://uwatt.dev/schemas/metrics.schema.json",
+  "title": "uWatt metrics",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "metrics"],
+  "properties": {
+    "schema_version": { "type": "string", "minLength": 1 },
+    "metrics": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["name", "value", "unit"],
+        "properties": {
+          "name": { "type": "string", "minLength": 1 },
+          "subject": { "type": "string", "minLength": 1 },
+          "value": { "type": "number" },
+          "unit": {
+            "type": "string",
+            "enum": ["A", "V", "s", "C", "J", "W", "Hz", "count", "percent"]
+          },
+          "metadata": {
+            "type": "object",
+            "additionalProperties": true
+          }
+        }
+      }
+    }
+  }
+}
+

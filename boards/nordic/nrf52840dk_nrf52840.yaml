@@ -1,0 +1,21 @@
+board: nrf52840dk/nrf52840
+vendor: nordic
+mcu: nRF52840
+platform: zephyr
+
+marker:
+  gpio: P0.13
+
+measurement:
+  recommended_voltage: 3.0V
+  safe_voltage_min: 1.8V
+  safe_voltage_max: 3.6V
+
+flashing:
+  runner: jlink
+
+caveats:
+  - Isolate onboard debugger when measuring low-current sleep states.
+  - Disable user LEDs during low-power tests.
+  - Verify solder bridge and jumper configuration before powering from an instrument.
+

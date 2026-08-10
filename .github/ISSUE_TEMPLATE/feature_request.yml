@@ -1,0 +1,27 @@
+name: Feature request
+description: Propose a uWatt feature
+title: "[feature]: "
+labels: ["enhancement"]
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem
+      description: What embedded energy workflow does this improve?
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposal
+      description: Describe the behavior, interface or artifact change.
+    validations:
+      required: true
+  - type: textarea
+    id: evidence
+    attributes:
+      label: Evidence
+      description: Measurements, traces, target platforms or examples that motivate it.
+    validations:
+      required: false
+

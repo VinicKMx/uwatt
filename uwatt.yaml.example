@@ -1,0 +1,43 @@
+project:
+  name: env-sensor
+
+target:
+  board: nrf52840dk/nrf52840
+  mcu: nRF52840
+
+instrument:
+  backend: synthetic
+  voltage: 3.0V
+  sample_rate: 1kHz
+
+synchronization:
+  method: synthetic
+  channel: 0
+
+scenarios:
+  periodic_sensor:
+    board: nrf52840dk/nrf52840
+    duration: 60s
+    repetitions: 20
+
+    measurement:
+      voltage: 3.0V
+
+    expect:
+      events:
+        sensor_read:
+          minimum_count: 20
+
+    budgets:
+      average_current:
+        max: 25uA
+
+      regions:
+        sensor_read:
+          charge:
+            max: 100uC
+
+        ble_adv:
+          charge:
+            max: 25uC
+
