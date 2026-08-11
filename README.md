@@ -106,4 +106,5 @@ If this project helped you, you can send a few sats over Lightning:
 
 ## License
 
-Apache-2.0. See [LICENSE](LICENSE).
+Dual-licensed under [MIT](LICENSE-MIT) or [Apache-2.0](LICENSE-APACHE), at your
+option.
