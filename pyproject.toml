@@ -11,7 +11,7 @@ requires-python = ">=3.11"
 license = "MIT OR Apache-2.0"
 license-files = ["LICENSE-MIT", "LICENSE-APACHE"]
 authors = [
-  { name = "uWatt contributors" }
+  { name = "Vinícius Eduardo Alves Pedrosa", email = "vinicius.eduardo.pedrosa@gmail.com" }
 ]
 keywords = [
   "embedded",
