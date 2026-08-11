@@ -33,3 +33,8 @@ tmp/
 *.planning.md
 *.notes.md
 TODO.local.md
+
+# Development-only documentation
+CONTRIBUTING.md
+CHANGELOG.md
+CODE_OF_CONDUCT.md
